@@ -73,9 +73,9 @@ public class EditBookController {
         bookPublisher_field.getItems().addAll(publishersBookData);
     }
     private boolean isInputValid() {
-        String errorMessage = "";
 
-        if (bookName_field.getText() == null || bookName_field.getText().length() == 0) errorMessage += "Не обнаружено название книги!\n";
+        String errorMessage = "";
+        if (!bookName_field.getText().matches("[\\sA-ZА-Яa-za-я]{3,20}") ||bookName_field.getText() == null || bookName_field.getText().length() == 0) errorMessage += "Некорректное значение названия книги!\n";
         if (bookAuthor_field.getValue() == null || bookAuthor_field.getValue().hashCode() == 0) errorMessage += "Не обнаружен автор книги!\n";
         if (bookPublisher_field.getValue() == null || bookPublisher_field.getValue().hashCode() == 0) errorMessage += "Не обнаружено издание книги!\n";
         if (bookYear_field.getText() == null || bookYear_field.getText().length() == 0) errorMessage += "Не обнаружен год выпуска книги!\n";
@@ -86,13 +86,13 @@ public class EditBookController {
                 errorMessage += "Некорректное значение года выпуски книги (Должен быть целочисленным)!\n";
             }
         }
-        if (bookChapter_field.getText() == null || bookChapter_field.getText().length() == 0) errorMessage += "\n";
-
+        if (!bookChapter_field.getText().matches("[\\sA-ZА-Яa-za-я]{3,20}") || bookChapter_field.getText() == null || bookChapter_field.getText().length() == 0) errorMessage += "Некорректное значение жанра книги!\n";
+        if (!bookYear_field.getText().matches("[\\d0-9]{4}") || bookYear_field.getText() == null) errorMessage += "Год выпуска введен некорректно! \n";
         if (errorMessage.length() == 0) return true;
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(editBookStage);
-            alert.setTitle("Error");
+            alert.setTitle("Oops!");
             alert.setHeaderText("Пожалуйста, укажите корректные значения текстовых полей");
             alert.setContentText(errorMessage);
 

@@ -64,6 +64,7 @@ public class ApplicationController {
     @FXML
     private TableColumn<PublishingEntity, String> publisherPublisher;
 
+/*вызывается метод при вызове контроллера который получает данные о книгах авторах и издании*/
     @FXML
     private void initialize() throws Exception {
         getDataBooks();
@@ -73,7 +74,7 @@ public class ApplicationController {
         updateTableAuthors();
         updateTablePublishers();
     }
-
+/*обновляем данные в таблице книг*/
     private void updateTableBooks() throws Exception {
         bookName.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("title"));
         bookAuthor.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("author"));
@@ -82,18 +83,20 @@ public class ApplicationController {
         bookChapter.setCellValueFactory(new PropertyValueFactory<BookEntity, String>("kind"));
         tableBooks.setItems(booksData);
     }
+    /*обновляем данные в таблице авторов*/
     private void updateTableAuthors() throws Exception {
         authorName.setCellValueFactory(new PropertyValueFactory<AuthorEntity, String>("name"));
         authorSurname.setCellValueFactory(new PropertyValueFactory<AuthorEntity, String>("surname"));
         authorLastname.setCellValueFactory(new PropertyValueFactory<AuthorEntity, String>("lastname"));
         tableAuthors.setItems(authorsData);
     }
+    /*обновляем данные в таблице изданий*/
     private void updateTablePublishers() throws Exception {
         publisherPublisher.setCellValueFactory(new PropertyValueFactory<PublishingEntity, String>("publisher"));
         publisherCity.setCellValueFactory(new PropertyValueFactory<PublishingEntity, String>("city"));
         tablePublishers.setItems(publishersData);
     }
-
+    /**/
     @FXML
     private void click_newBook() throws IOException {
         BookEntity tempBook = new BookEntity();
@@ -206,11 +209,12 @@ public class ApplicationController {
             alert.showAndWait();
         }
     }
-
+/*получаем список книг*/
     public static void getDataBooks() throws Exception {
+        /*записывает ответ от апи*/
         String res = http.get(api,"book/all");
         System.out.println(res);
-
+        /*разьираем джсон*/
         JsonObject base = gson.fromJson(res, JsonObject.class);
         JsonArray dataArr = base.getAsJsonArray("data");
 
@@ -235,7 +239,6 @@ public class ApplicationController {
 
     public static void getDataPublishers() throws Exception {
         String res = http.get(api,"publisher/all");
-        System.out.println(res);
         System.out.println(res);
 
         JsonObject base = gson.fromJson(res, JsonObject.class);

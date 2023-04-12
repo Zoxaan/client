@@ -29,6 +29,7 @@ public class EditAuthorController {
     private void handleCancel() {editAuthorStage.close();}
 
     @FXML
+    /*устанавлием параметры автора ( берем данные из вписанных полей)*/
     private void handleOk() throws IOException {
         if (isInputValid()) {
             author.setLastname(authorLastname_field.getText());
